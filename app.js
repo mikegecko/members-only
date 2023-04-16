@@ -7,6 +7,10 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const dotenv = require('dotenv');
+dotenv.config();
+
+const PORT = process.env.PORT || 3000;
 
 //Routers
 const indexRouter = require('./routes/index');
@@ -45,5 +49,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// app.listen(PORT, () => {
+//   console.log(`Server listening on port ${PORT}`);
+// })
 
 module.exports = app;
