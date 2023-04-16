@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const db_connect = require('./utils/db');
 const LocalStrategy = require('passport-local').Strategy;
+const User = require('./models/user');
 const dotenv = require('dotenv');
 dotenv.config();
 
