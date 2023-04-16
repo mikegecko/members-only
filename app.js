@@ -31,6 +31,32 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 //PassportJs
+//This function is called when a user is authenticated (passport.authenticate() is called)
+passport.use( new LocalStrategy( async(username, password, done) => {
+  try {
+    const user = await User.findOne({username: username});
+    if(!user){
+      return done(null, false, {message: "Incorrect username"});
+    } 
+    if(user.password !== password){
+      return done(null, false, {message: "Incorrect password"});
+    } 
+    return done(null, user);
+  } catch (error) {
+    return(done(error))
+  }
+}));
+passport.serializeUser((user,done) => {
+  done(null, user._id);
+});
+passport.deserializeUser( async(id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (error) {
+    done(error)
+  }
+});
 app.use(session({secret: process.env.SECRET, resave: false,  saveUninitialized: false}));
 app.use(passport.initialize());
 app.use(passport.session());
