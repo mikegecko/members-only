@@ -7,11 +7,21 @@ router.get('/', function(req, res, next) {
     res.render('login', { title: 'Login' });
   });
   
-router.post('/', async (req, res, next) => {
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/login',
-    })
+router.post('/', function(req, res, next) {
+    passport.authenticate('local', function(err,user,info){
+        if(err) {
+            return(next(err));
+        }
+        if(!user){
+            return res.redirect('/login');
+        }
+        req.logIn(user, function(err){
+            if(err){
+                return next(err);
+            }
+            return res.redirect('/')
+        })
+    })(req,res,next)
 });
 
 module.exports = router;
