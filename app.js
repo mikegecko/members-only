@@ -6,6 +6,7 @@ const logger = require('morgan');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const db_connect = require('./utils/db');
 const LocalStrategy = require('passport-local').Strategy;
 const dotenv = require('dotenv');
 dotenv.config();
@@ -16,7 +17,9 @@ const PORT = process.env.PORT || 3000;
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
+
 const app = express();
+db_connect();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,6 +31,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 //PassportJs
+app.use(session({secret: process.env.SECRET, resave: false,  saveUninitialized: false}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //Routes
