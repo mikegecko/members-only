@@ -10,7 +10,8 @@
       <% if (user.role === 'trial') { %>
         <a href="/passcode">Enter passcode to join</a>
       <% } else{ %>
-        <p>Youve joined</p>
+        <p>You've joined</p>
+        <a href="/">Create new message</a>
       <% } %>
       <a href="/logout">Logout</a>
     <% } else{ %>
@@ -19,6 +20,15 @@
     <a href="/login">Please Log in</a>
     <p>or</p>
     <a href="/signup">Sign-up</a>
+    <% } %>
+    <h2>Messages</h2>
+
+      
+
+    <% if (user) { %>
+
+    <% } else{ %>
+
     <% } %>
   </body>
 </html>
