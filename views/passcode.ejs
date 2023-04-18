@@ -7,11 +7,15 @@
     <title>Passcode</title>
 </head>
 <body>
+    <% if (user) { %>
     <h5>Enter the secret passcode.</h5>
-    <form action="POST">
+    <form action="/passcode" method="POST" >
         <label for="passcode">Passcode:</label>
         <input type="password" name="passcode" />
         <button type="submit">Submit</button>
     </form>
+    <% } else{ %>
+        <a href="/login">Please Login</a>
+    <% } %>
 </body>
 </html>
