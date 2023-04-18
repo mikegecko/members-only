@@ -15,6 +15,7 @@ router.post('/', async (req, res, next) => {
         const newUser = new User({
             username: req.body.username,
             password: hash,
+            role: 'trial',
         });
         const result = await newUser.save();
         res.redirect('/');
