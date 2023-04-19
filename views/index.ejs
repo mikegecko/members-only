@@ -29,6 +29,7 @@
           <div>
             <h5><%=message.created_by.username %></h5>
           <p><%= message.content %></p>
+          <p><%= message.created_at.toLocaleDateString() %></p>
           </div>
           <% } else{ %>
             <div>
