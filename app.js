@@ -22,6 +22,7 @@ const signupRouter = require('./routes/signup');
 const loginRouter = require('./routes/login');
 const logoutRouter = require('./routes/logout');
 const passcodeRouter = require('./routes/passcode');
+const messageRouter = require('./routes/message');
 
 const app = express();
 db_connect();
@@ -78,6 +79,7 @@ app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/passcode', passcodeRouter);
+app.use('/message', messageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
