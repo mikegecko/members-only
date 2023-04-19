@@ -9,6 +9,9 @@
       <h1>Welcome back <%= user.username %></h1>
       <% if (user.role === 'trial') { %>
         <a href="/passcode">Enter passcode to join</a>
+      <% } if (user.admin) { %>
+        <p>You are an admin</p>
+        <a href="/message">Create new message</a>
       <% } else{ %>
         <p>You've joined</p>
         <a href="/message">Create new message</a>
