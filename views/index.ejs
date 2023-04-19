@@ -23,8 +23,14 @@
     <% } %>
     <h2>Messages</h2>
 
-      
-
+      <% if(messages) { %>
+        <p>Messages exists</p>
+        <% messages.forEach((message) => { %>
+          <p><%= message.content %></p>
+         <% }); %>
+      <% } else{ %>
+        <p>No messages</p>
+      <% } %>
     <% if (user) { %>
 
     <% } else{ %>
