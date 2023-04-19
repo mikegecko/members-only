@@ -12,7 +12,7 @@ router.post('/', async function(req, res, next) {
     try {
         const newMessage = new Message({ 
             content: req.body.content,
-            created_by: req.body.user,
+            created_by: req.user._id,
             created_at: Date.now(),
         })
         const result = await newMessage.save();
