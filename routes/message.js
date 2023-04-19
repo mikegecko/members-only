@@ -22,4 +22,13 @@ router.post('/', async function(req, res, next) {
     }
 })
 
+router.delete('/:id', async function(req, res, next) {
+    try {
+        const result = await Message.findByIdAndDelete(req.params.id);
+        res.redirect('/');
+    } catch (error) {
+        return next(error);
+    }
+})
+
 module.exports = router;
