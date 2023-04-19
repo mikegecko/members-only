@@ -8,7 +8,20 @@ router.get("/", function (req, res, next) {
 });
 
 router.post("/", async function(req, res, next) {
-    if(req.body.passcode === process.env.PASSCODE){
+    if(req.body.passcode === process.env.SUPERSECRET_PASSCODE){
+        try {
+            const user = await User.findByIdAndUpdate(req.user._id, {
+                role: 'member',
+                admin: true,
+            });
+            user.role = "member";
+            user.admin = true;
+        } catch (error) {
+            return next(error);
+        }
+        res.redirect("/");
+    }
+    else if(req.body.passcode === process.env.PASSCODE){
         try {
             const user = await User.findByIdAndUpdate(req.user._id, {
                 role: 'member',
