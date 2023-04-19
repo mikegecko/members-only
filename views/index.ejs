@@ -25,7 +25,10 @@
 
       <% if(messages) { %>
         <% messages.forEach((message) => { %>
+          <div>
+            <h5><%=message.created_by.username %></h5>
           <p><%= message.content %></p>
+          </div>
          <% }); %>
       <% } else{ %>
         <p>No messages</p>
