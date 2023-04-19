@@ -6,10 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Message</title>
 </head>
-<body>
+<body>    
+    <% if (user) { %>
     <form action="" method="POST">
         <textarea placeholder="Enter message text..." name="content" id="" cols="30" rows="10"></textarea>
         <button type="submit">Submit</button>
     </form>
+    <% } else{ %>
+        <a href="/login">Please login</a>
+    <% } %>
 </body>
 </html>
