@@ -4,17 +4,19 @@ const passport = require('passport');
 const Message = require('../models/message');
 const User = require('../models/user');
 
+router.get('/', function(req, res, next) {
+    res.render('message', { title: 'New Message', user: req.user });
+  });
 
-
-router.post('/new', async function(req, res, next) {
+router.post('/', async function(req, res, next) {
     try {
         const newMessage = new Message({ 
             content: req.body.content,
             created_by: req.body.user,
             created_at: Date.now(),
         })
-        
-
+        const result = await newMessage.save();
+        res.redirect('/');
     } catch (error) {
         return next(error);
     }
