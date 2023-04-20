@@ -1,59 +1,75 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <% if (user) { %>
-      <h1>Welcome back <%= user.username %></h1>
-      <% if (user.role === 'trial') { %>
-        <a href="/passcode">Enter passcode to join</a>
-      <% } else if (user.admin) { %>
-        <p>You are an admin</p>
-        <a href="/message">Create new message</a>
-      <% } else{ %>
-        <p>You've joined</p>
-        <a href="/message">Create new message</a>
-      <% } %>
-      <a href="/logout">Logout</a>
-    <% } else{ %>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <a href="/login">Please Log in</a>
-    <p>or</p>
-    <a href="/signup">Sign-up</a>
+
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <div class="header">
+    <h1>Members only</h1>
+    <div class="action-bar">
+      <h3><%= title %></h3>
+      <% if (user) { %>
+        <a href="/logout">Logout</a>
+        <% } else{ %>
+          <a href="/login">Please Log in</a>
+          <% } %>
+    </div>
+  </div>
+  <% if (user) { %>
+    <div class="welcome">
+  <h2>Welcome back <%= user.username %></h2>
+    </div>
+  <% if (user.role === 'trial') { %>
+  <a href="/passcode">Enter passcode to join</a>
+  <% } else if (user.admin) { %>
+  <p>You are an admin</p>
+  <a href="/message">Create new message</a>
+  <% } else{ %>
+  <p>You've joined</p>
+  <a href="/message">Create new message</a>
+  <% } %>
+  <a href="/logout">Logout</a>
+  <% } else{ %>
+  <a href="/login">Please Log in</a>
+  <p>or</p>
+  <a href="/signup">Sign-up</a>
+  <% } %>
+  <h2>Messages</h2>
+
+  <% if(messages) { %>
+  <% messages.forEach((message) => { %>
+  <% if (user && user.role === 'member') { %>
+  <div>
+    <h5><%=message.created_by.username %></h5>
+    <% if(user.admin) { %>
+    <form method="POST" action='/message/<%=message._id%>?_method=DELETE'>
+      <input type="hidden" name="_method" value="DELETE" />
+      <button type="submit">Delete Message</button>
+    </form>
     <% } %>
-    <h2>Messages</h2>
+    <p><%= message.content %></p>
+    <p>
+      <%= message.created_at.toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }) %>
+    </p>
+  </div>
+  <% } else{ %>
+  <div>
+    <h5>Anonymous</h5>
+    <p><%= message.content %></p>
+  </div>
+  <% } %>
+  <% }); %>
+  <% } else{ %>
+  <p>No messages</p>
+  <% } %>
 
-      <% if(messages) { %>
-        <% messages.forEach((message) => { %>
-          <% if (user && user.role === 'member') { %>
-          <div>
-            <h5><%=message.created_by.username %></h5>
-            <% if(user.admin) { %>
-               <form method="POST" action='/message/<%=message._id%>?_method=DELETE'>
-                <input type="hidden" name="_method" value="DELETE"/>
-                <button type="submit">Delete Message</button>
-               </form>
-              <% } %>
-          <p><%= message.content %></p>
-          <p><%= message.created_at.toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }) %></p>
-          </div>
-          <% } else{ %>
-            <div>
-              <h5>Anonymous</h5>
-            <p><%= message.content %></p>
-            </div>
-            <% } %>
-         <% }); %>
-      <% } else{ %>
-        <p>No messages</p>
-      <% } %>
-    
 
-    
 
-    
-  </body>
+
+
+</body>
+
 </html>
