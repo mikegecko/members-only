@@ -14,8 +14,9 @@ a {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  background-color: #776f63;
+  background-color: #2e0e1f;
   padding-left: 50px;
+  padding-top: 20px;
 }
 .action-bar{
   display: flex;
@@ -31,4 +32,38 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.welcome{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.message-header{
+  width: 100%;
+  text-align: center;
+}
+.messages{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+}
+.message{
+  display: flex;
+  width: 80%;
+  border-radius: .5rem;
+  background-color: #3b3b3b;
+  flex-direction: column;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.message-bottom{
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
 }
