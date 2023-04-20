@@ -7,11 +7,13 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <title>New Message</title>
 </head>
-<body>    
+<body>
     <% if (user) { %>
     <form action="" method="POST">
-        <textarea placeholder="Enter message text..." name="content" id="" cols="30" rows="10"></textarea>
+        <div class="message-input">
+        <textarea placeholder="Enter message text..." name="content" id="textarea" cols="30" rows="10"></textarea>
         <button type="submit">Submit</button>
+    </div>
     </form>
     <% } else{ %>
         <a href="/login">Please login</a>
