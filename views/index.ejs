@@ -13,59 +13,67 @@
       <h3><%= title %></h3>
       <% if (user) { %>
         <a href="/logout">Logout</a>
+        <% if (user.role === 'trial') { %>
+          <a href="/passcode">Enter passcode to join</a>
+          <% } else if (user.admin) { %>
+          <a href="/message">Create new message</a>
+          <% } else{ %>
+          <a href="/message">Create new message</a>
+          <% } %>
         <% } else{ %>
           <a href="/login">Please Log in</a>
+          <a href="/signup">Sign-up</a>
           <% } %>
     </div>
   </div>
+  <div class="welcome">
   <% if (user) { %>
-    <div class="welcome">
   <h2>Welcome back <%= user.username %></h2>
-    </div>
   <% if (user.role === 'trial') { %>
-  <a href="/passcode">Enter passcode to join</a>
   <% } else if (user.admin) { %>
-  <p>You are an admin</p>
-  <a href="/message">Create new message</a>
+  <p>Signed in as admin</p>
   <% } else{ %>
   <p>You've joined</p>
-  <a href="/message">Create new message</a>
   <% } %>
-  <a href="/logout">Logout</a>
   <% } else{ %>
-  <a href="/login">Please Log in</a>
-  <p>or</p>
-  <a href="/signup">Sign-up</a>
   <% } %>
-  <h2>Messages</h2>
+  </div>
+  <div>
+  <h2 class="message-header">Messages</h2>
 
   <% if(messages) { %>
+    <div class="messages">
   <% messages.forEach((message) => { %>
   <% if (user && user.role === 'member') { %>
-  <div>
+    <div class="message">
     <h5><%=message.created_by.username %></h5>
-    <% if(user.admin) { %>
-    <form method="POST" action='/message/<%=message._id%>?_method=DELETE'>
-      <input type="hidden" name="_method" value="DELETE" />
-      <button type="submit">Delete Message</button>
-    </form>
-    <% } %>
     <p><%= message.content %></p>
-    <p>
-      <%= message.created_at.toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }) %>
-    </p>
+    <div class="message-bottom">
+      <p>
+        <%= message.created_at.toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }) %>
+      </p>
+    <% if(user.admin) { %>
+      <form method="POST" action='/message/<%=message._id%>?_method=DELETE'>
+        <input type="hidden" name="_method" value="DELETE" />
+        <button type="submit">Delete Message</button>
+      </form>
+      <% } %>
+  </div>
   </div>
   <% } else{ %>
+    <div class="message">
   <div>
     <h5>Anonymous</h5>
     <p><%= message.content %></p>
   </div>
+</div>
   <% } %>
   <% }); %>
   <% } else{ %>
   <p>No messages</p>
   <% } %>
-
+</div>
+</div>
 
 
 
