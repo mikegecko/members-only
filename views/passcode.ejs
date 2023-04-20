@@ -9,11 +9,13 @@
 </head>
 <body>
     <% if (user) { %>
-    <h5>Enter the secret passcode.</h5>
+    <h5 class="signup-header">Enter the secret passcode.</h5>
     <form action="/passcode" method="POST" >
+        <div class="signup">
         <label for="passcode">Passcode:</label>
         <input type="password" name="passcode" />
         <button type="submit">Submit</button>
+    </div>
     </form>
     <% } else{ %>
         <a href="/login">Please Login</a>
